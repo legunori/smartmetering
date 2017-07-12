@@ -1,0 +1,211 @@
+html {
+    font-size: 13px;
+}
+
+body {
+    font-family: 'メイリオ',Meiryo,'ヒラギノ角ゴ Pro W3','Hiragino Kaku Gothic Pro','ＭＳ Ｐゴシック',sans-serif !important ;
+    -webkit-font-smoothing: antialiased;
+}
+
+/**/
+.dashboard-border-right {
+    border-right: solid 1px #c6d2da;
+}
+
+.title-block > .title.my-title{
+    border-bottom: 1px solid #c6d2da;
+}
+
+/*ダッシュボード Name */
+.stat .name {
+    color: black;
+    font-size: 0.9rem!important;
+}
+/* ダッシュボード Value */
+.stat .value{
+    text-decoration: none;
+    font-size: 1.2rem!important;
+    transition: font-size 0.6s, font-weight 0.6s;
+}
+.stat a.value:hover{
+    text-decoration: underline;
+    font-size: 2.2rem!important;
+    font-weight: bold;
+    transition: font-size 0.1s, font-weight 0.1s;
+}
+
+progress.animate {
+    position: absolute;
+}
+
+.section {
+    margin-bottom: 15px!important;
+}
+.card-block {
+    padding: 15px!important
+}
+
+.header-block {
+    /*padding: 3px 15px!important;*/
+}
+.card-header {
+    /*min-height: 38px!important;*/
+    /*vertical-align: middle!important;*/
+}
+.table th,
+.table td {
+    padding: 5px;
+}
+
+.card .title {
+    font-size: 1.25rem!important;
+}
+
+/*月次請求の請求月選択*/
+.my-selector {
+    padding: 3px 3px;
+}
+div.my-selector a {
+    padding-left:3px;
+    padding-right:3px;
+    transition: color 0.6s, background-color 0.6s;
+}
+div.my-selector a.selected {
+    background-color: #85d2ed;
+    color: #000;
+    font-weight:bold;
+    transition: color 0.3s, background-color 0.3s;
+}
+div.my-selector a:hover, div.my-selector a span:hover{
+    text-decoration: underline;
+}
+.selector-separator {
+    color:#D7DDE4;
+}
+/* 進捗アクティブリンク */
+a.my-active-link {
+    font-weight:bold;
+}
+a.my-active-link:hover{
+    text-decoration: underline!important;
+}
+a.my-cancel-link{
+    font-weight:bold;
+    color: #000!important;
+}
+a.my-cancel-link:hover{
+    text-decoration: underline!important;
+}
+
+.input-sm {
+    height:2.25em !important;
+    /*padding:3px !important;*/
+    /*font-size:0.875rem!important;*/
+    padding: .270em .75em;
+    font-size: .9rem;
+    line-height: 1.5;
+
+}
+
+.title-block {
+    margin-bottom:10px!important;
+}
+
+ul.my-input-group {
+    padding:0 0 0 3px;
+    margin:0;
+    white-space: nowrap !important;
+}
+.my-input-group li {
+    display: inline-block;
+}
+
+select {
+    font-weight: bold;
+    padding: 3px!important;
+}
+
+.my-label {
+    min-width:80px;
+}
+
+th {
+    border-top: none!important;
+}
+th.my-numeric, td.my-numeric {
+    padding-right:15px;
+    text-align: right;
+}
+
+.my-flow-separator {
+    margin-left:0.9rem;
+    margin-right:0.9rem;
+}
+
+.input-daterange {
+    width: 220px!important;
+    margin: 0!important;
+}
+
+.header-block {
+    vertical-align: middle;
+}
+.header-block * {
+    vertical-align: middle;
+}
+
+table.search-input {
+    padding:5px;
+}
+table.search-input th, table.search-input td{
+    padding-left:5px;
+    padding-right:5px;
+}
+table.search-input {
+    margin-top:5px;
+    margin-bottom:15px;
+}
+
+table.my-table-list th {
+    background-color: #F5F5F5;
+}
+table.my-table-list, table.my-table-list th, table.my-table-list td {
+    border-color: #DDDDDD;
+}
+
+span.ward-highlight {
+    color: darkblue;
+    font-weight: bold;
+    text-decoration: underline;
+}
+
+.input-group {
+    margin-bottom:0!important;
+}
+
+ul.my-sortable {
+    list-style: none;
+    padding: 0 10px;
+}
+
+ul.my-sortable > li {
+    border: 1px solid #CCC;
+    margin-bottom: 10px;
+    padding: 10px;
+    cursor: move;
+    background-color: #fafafa;
+}
+
+/*バリデーション関連*/
+.form-group.has-error label {
+    color: red;
+}
+
+.form-group.has-error .form-control {
+    border-color: red;
+    background-color: #FFE3E6;
+}
+
+.my-radio label {
+    margin:0;
+}

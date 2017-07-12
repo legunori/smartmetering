@@ -1,0 +1,63 @@
+<div class="content_loader" ng-if="main.state.loading"></div>
+<article class="content dashboard-page animate" ng-if="!main.state.loading">
+
+    <!-- 検針状況 -->
+    <section class="section">
+        <div class="row sameheight-container">
+            <div class="col col-xs-1 col-sm-12 col-md-12 col-xl-12 stats-col ">
+                <div class="card sameheight-item" data-exclude="xs">
+
+                    <!-- ここからリピート -->
+                    <div class="card-block" ng-repeat="rec in ctrl.meteringStatus" ng-style="{paddingTop: $index > 0 ? '0' : ''}">
+                        <div class="title-block" style="margin-bottom: 0" ng-style="{borderTop: $index > 0 ? '1px solid #c6d2da' : ''}">
+                            <h4 class="title my-title" ng-if="$index==0">
+                                検針状況
+                            </h4>
+                            <span class="label label-info" ng-bind="rec.buildingName"></span>
+
+                        <div class="row row-sm stats-container">
+                            <div class="col-xs-1 col-sm-4 col-md-4 stat-col dashboard-border-right text-sm-center">
+                                <!--<div class="stat-icon"> <i class="fa fa-rocket"></i> </div>-->
+                                <div class="stat">
+                                    <div class="name"> 正常稼働 </div>
+                                    <div>
+                                        <a ng-if="rec.runningCount>0" class="value text-success" href="#" onclick="return false;"
+                                           ng-bind="rec.runningCount" ng-click="ctrl.line1.runningCountClicked(rec.buildingCode)">0</a>
+                                        <span ng-if="rec.runningCount==0" class="value">0</span>
+                                        <small> 件</small>
+                                    </div>
+                                </div>
+                                <!--<progress class="progress stat-progress progress-warning" value="0" max="100"/>-->
+                            </div>
+                            <div class="col-xs-1 col-sm-4 col-md-4 stat-col dashboard-border-right text-sm-center">
+                                <!--<div class="stat-icon"> <i class="fa fa-shopping-cart"></i> </div>-->
+                                <div class="stat">
+                                    <div class="name"> 警告発生 </div>
+                                    <div>
+                                        <a ng-if="rec.warningCount>0" class="value text-warning" href="#" onclick="return false;"
+                                           ng-bind="rec.warningCount" ng-click="ctrl.line1.warningCountClicked(rec.buildingCode)">0</a>
+                                        <span ng-if="rec.warningCount==0" class="value">0</span>
+                                        <small> 件</small>
+                                    </div>
+                                </div>
+                                <!--<progress class="progress stat-progress" value="0" max="100"/>-->
+                            </div>
+                            <div class="col-xs-1 col-sm-4 col-md-4 stat-col dashboard-border-right text-sm-center">
+                                <!--<div class="stat-icon"> <i class="fa fa-line-chart"></i> </div>-->
+                                <div class="stat">
+                                    <div class="name"> 異常停止 </div>
+                                    <a ng-if="rec.stoppingCount>0" class="value text-danger" href="#" onclick="return false;"
+                                       ng-bind="rec.stoppingCount" ng-click="ctrl.line1.stoppingCountClicked(rec.buildingCode)">0</a>
+                                    <span ng-if="rec.stoppingCount==0" class="value">0</span>
+                                    <small> 件</small>
+                                </div>
+                                <!--<progress class="progress stat-progress" value="80" max="100"/>-->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+</article>

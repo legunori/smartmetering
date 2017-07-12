@@ -1,0 +1,289 @@
+<!--<div class="content_loader animate" ng-if="main.state.loading"></div>-->
+<article class="content items-list-page" >
+    <div class="title-block">
+        <div class="row">
+            <div class="col-md-6">
+                <h3 class="title">
+                    月次集計結果
+                </h3>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="card card-info">
+                <div class="card-header bordered card-header-sm">
+                    <div class="header-block pull-left">
+                        <h4 class="title">
+                            <a href="#" onclick="return false;" class="fa show-on-hover" ng-click="ctrl.expandSearch = !ctrl.expandSearch"
+                               ng-class="ctrl.expandSearch?'fa-search-minus':'fa-search-plus'" style="margin: 0!important;" title="検索"> 検索</a>
+                        </h4>
+                    </div>
+                </div>
+                <div class="card-block row animate-show-hide" ng-show="ctrl.expandSearch">
+                    <!--建物 -->
+                    <div class="col-sm-6 col-md-4">
+                        <label for="srBuildingSearch">建物</label>
+                        <select id="srBuildingSearch" class="form-control input-sm" ng-change="main.paging.refresh()"
+                                ng-model="ctrl.param.buildingCode"
+                                ng-options="r.code as r.name for r in main.masters.buildingList">
+                            <option value="">全て</option>
+                        </select>
+                    </div>
+
+                    <!--部屋番号-->
+                    <div class="col-sm-2">
+                        <label for="srRoomSearch">部屋番号</label>
+                        <select id="srRoomSearch" class="form-control input-sm" ng-change="main.paging.refresh()"
+                                ng-model="ctrl.param.roomCode"
+                                ng-options="r.roomCode as r.roomCode for r in main.masters.roomList | filter:{buildingCode: ctrl.param.buildingCode}">
+                                <option value="">全て</option>
+                        </select>
+                    </div>
+
+                    <!--検針年月-->
+                    <div class="col-sm-2">
+                        <label for="srMonthSearch">検針年月</label>
+                        <select id="srMonthSearch" class="form-control input-sm" ng-change="main.paging.refresh()"
+                                ng-model="ctrl.param.month"
+                                ng-options="r.month as r.month for r in main.masters.meterMonthList">
+                                <option value="">全て</option>
+                        </select>
+                    </div>
+
+                    <div class="col-sm-12">
+                        <div class="btn-group pull-right" style="margin-top: 10px;">
+                            <a type="button" class="btn btn-default btn-sm" ng-click="ctrl.expandSearch = false">閉じる</a>
+                        </div>
+                        <div class="btn-group pull-right" style="margin-top: 10px;">
+                            <a type="button" class="btn btn-default btn-sm" ng-click="ctrl.clear()">条件をクリア</a>
+                        </div>
+                        <!--<span>{{ctrl}}</span>-->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class=" col-xs-12">
+            <div class="card card-info">
+                <div class="card-header bordered card-header-sm">
+                    <div class="header-block pull-left">
+                        <h4 class="title">
+                            <span class="fa fa-calendar"> 一覧</span>
+                        </h4>
+                    </div>
+                    <div class="header-block pull-right">
+                        <a href="#" onclick="return false;" class="fa fa-plus show-on-hover" ng-click="ctrl.view.onClickAddButton()"
+                           style="margin:0!important;" title="追加"></a>
+                    </div>
+                </div>
+                <div class="card-block">
+                    <div ng-include="'parts/pagination'"></div>
+                    <table class="table table-striped table-bordered table-condensed table-hover my-table-list" ng-mouseleave="ctrl.overRow=-1">
+                        <thead>
+                        <tr class="text-center">
+                            <th style="width: 50px;">建物</th>
+                            <th style="width: 50px;">部屋番号</th>
+                            <th style="width: 60px;">検針月</th>
+                            <th style="width: 40px">電気<br>(kWh)</th>
+                            <th style="width: 40px">水道<br>(㎥)</th>
+                            <th style="width: 40px">給湯<br>(㎥)</th>
+                            <th style="width: 40px">冷暖房<br>(時間)</th>
+                            <th style="width: 40px">灯油<br>(㍑)</th>
+                            <th style="width: 40px">ガス<br>(㎥)</th>
+                            <th style="width: 40px">動力<br>(kWh)</th>
+                            <th style="width: 40px">電話<br>(円)</th>
+
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr ng-repeat="rec in main.paging.listInPage" ng-mouseenter="ctrl.overRow = $index">
+                            <td><span style="white-space: pre-wrap;" ng-bind-html="::rec.buildingName"></span></td>
+                            <td><span style="white-space: pre-wrap;" ng-bind-html="::rec.roomCode"></span></td>
+                            <td class="text-nowrap">{{::rec.month}}</td>
+                            <td><span style="white-space: pre-wrap;" ng-bind-html="::rec.valueEp"></span></td>
+                            <td><span style="white-space: pre-wrap;" ng-bind-html="::rec.valueWt"></span></td>
+                            <td><span style="white-space: pre-wrap;" ng-bind-html="::rec.valueHw"></span></td>
+                            <td><span style="white-space: pre-wrap;" ng-bind-html="::rec.valueCh"></span></td>
+                            <td><span style="white-space: pre-wrap;" ng-bind-html="::rec.valueOl"></span></td>
+                            <td><span style="white-space: pre-wrap;" ng-bind-html="::rec.valueGs"></span></td>
+                            <td><span style="white-space: pre-wrap;" ng-bind-html="::rec.valuePw"></span></td>
+                            <td>
+                            	<span style="white-space: pre-wrap;" ng-bind-html="::rec.valuePh"></span>
+                                <a href="#" onclick="return false;" class="fa fa-edit pull-right show-on-hover animate"
+                                   ng-click="ctrl.view.onClickEditButton(rec)"
+                                   style="font-size: 1.5rem!important;" ng-if="ctrl.overRow == $index" title="編集"></a>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                    <div ng-include="'parts/pagination'"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</article>
+<script type="text/javascript">
+    $('.show-tooltip-top').tooltip({placement : 'top'});
+</script>
+
+<!-- 入力画面　モーダル -->
+<div class="modal fade" id="meterValueMonthly-edit-modal" data-backdrop="static">
+    <div class="modal-dialog" role="document">
+        <form name="meterValueInputForm" class="form-horizontal" role="form" novalidate ng-submit="ctrl.editModal.onClickOk(this.meterValueInputForm)">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="閉じる">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    <h4 class="modal-title"><i class="fa fa-pencil"></i> {{ctrl.editModal.title}}</h4>
+                </div>
+
+                <div class="modal-body">
+                    <div class="form-group row">
+                        <div class="col-sm-3">
+                            <label for="valueEp" class="control-label">検針月</label>
+                        </div>
+                        <div class="col-sm-4">
+                            <p for="roomCode "class="form-control-static">
+                            {{ctrl.editModal.model.month}}
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <div class="col-sm-3">
+                            <label for="valueEp" class="control-label">建物</label>
+                        </div>
+                        <div class="col-sm-5">
+                            <p for="roomCode "class="form-control-static">
+                            {{ctrl.editModal.model.buildingName}}
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <div class="col-sm-3">
+                            <label for="valueEp" class="control-label">部屋番号</label>
+                        </div>
+                        <div class="col-sm-2">
+                            <p for="roomCode "class="form-control-static">
+                            {{ctrl.editModal.model.roomCode}}
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <div class="col-sm-3">
+                            <label for="valueEp" class="control-label">電気使用料</label>
+                        </div>
+                        <div class="col-sm-2">
+                            <input id="valueEp" name="valueEp" type="text" class="form-control input-sm" ng-maxlength="5"
+                                   ng-model="ctrl.editModal.model.valueEp" >
+                        </div>
+                        <div class="col-sm-1">
+                            <label for="valueEp" class="control-label">kWh</label>
+                        </div>
+
+                        <div class="col-sm-3">
+                            <label for="valueOl" class="control-label">灯油使用料</label>
+                        </div>
+                        <div class="col-sm-2">
+                            <input id="valueOl" name="valueOl" type="text" class="form-control input-sm" ng-maxlength="5"
+                                   ng-model="ctrl.editModal.model.valueOl" >
+                        </div>
+                        <div class="col-sm-1">
+                            <label for="valueOl" class="control-label">㍑</label>
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <div class="col-sm-3">
+                            <label for="valueWt" class="control-label">水道使用料</label>
+                        </div>
+                        <div class="col-sm-2">
+                            <input id="valueWt" name="valueWt" type="text" class="form-control input-sm" ng-maxlength="5"
+                                   ng-model="ctrl.editModal.model.valueWt" >
+                        </div>
+                        <div class="col-sm-1">
+                            <label for="valueWt" class="control-label">㎥</label>
+                        </div>
+
+                        <div class="col-sm-3">
+                            <label for="valueGs" class="control-label">ガス使用料</label>
+                        </div>
+                        <div class="col-sm-2">
+                            <input id="valueGs" name="valueGs" type="text" class="form-control input-sm" ng-maxlength="5"
+                                   ng-model="ctrl.editModal.model.valueGs" >
+                        </div>
+                        <div class="col-sm-1">
+                            <label for="valueGs" class="control-label">㎥</label>
+                        </div>
+
+                    </div>
+
+                    <div class="form-group row">
+                        <div class="col-sm-3">
+                            <label for="valueHw" class="control-label">給湯使用料</label>
+                        </div>
+                        <div class="col-sm-2">
+                            <input id="valueHw" name="valueHw" type="text" class="form-control input-sm" ng-maxlength="5"
+                                   ng-model="ctrl.editModal.model.valueHw" >
+                        </div>
+                        <div class="col-sm-1">
+                            <label for="valueHw" class="control-label">㎥</label>
+                        </div>
+
+                        <div class="col-sm-3">
+                            <label for="valuePw" class="control-label">動力使用料</label>
+                        </div>
+                        <div class="col-sm-2">
+                            <input id="valuePw" name="valuePw" type="text" class="form-control input-sm" ng-maxlength="5"
+                                   ng-model="ctrl.editModal.model.valuePw" >
+                        </div>
+                        <div class="col-sm-1">
+                            <label for="valuePw" class="control-label">kWh</label>
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <div class="col-sm-3">
+                            <label for="valueCh" class="control-label">冷暖房使用料</label>
+                        </div>
+                        <div class="col-sm-2">
+                            <input id="valueCh" name="valueCh" type="text" class="form-control input-sm" ng-maxlength="5"
+                                   ng-model="ctrl.editModal.model.valueCh" >
+                        </div>
+                        <div class="col-sm-1">
+                            <label for="valueCh" class="control-label">分</label>
+                        </div>
+
+                        <div class="col-sm-3">
+                            <label for="valuePh" class="control-label">電話使用料</label>
+                        </div>
+                        <div class="col-sm-2">
+                            <input id="valuePh" name="valueOl" type="text" class="form-control input-sm" ng-maxlength="5"
+                                   ng-model="ctrl.editModal.model.valuePh" >
+                        </div>
+                        <div class="col-sm-1">
+                            <label for="valuePh" class="control-label">円</label>
+                        </div>
+
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-primary">
+                        <span >保存する</span>
+                    </button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">閉じる</button>
+                </div>
+            </div>
+        </form>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>

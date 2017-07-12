@@ -1,0 +1,17 @@
+{
+  "name": "smart-app",
+  "version": "0.0.1",
+  "main": "index.js",
+  "keywords": [
+    "smart"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "public/components",
+    "test",
+    "tests"
+  ]
+}

@@ -1,0 +1,127 @@
+<!--<div class="content_loader animate" ng-if="main.state.loading"></div>-->
+<article class="content items-list-page" >
+    <div class="title-block">
+        <div class="row">
+            <div class="col-md-6">
+                <h3 class="title">
+                    検針ライブデータ（スマートエナジー社製 検針ユニット）
+                </h3>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="card card-info">
+                <div class="card-header bordered card-header-sm">
+                    <div class="header-block pull-left">
+                        <h4 class="title">
+                            <a href="#" onclick="return false;" class="fa show-on-hover" ng-click="ctrl.expandSearch = !ctrl.expandSearch"
+                               ng-class="ctrl.expandSearch?'fa-search-minus':'fa-search-plus'" style="margin: 0!important;" title="検索"> 検索</a>
+                        </h4>
+                    </div>
+                </div>
+                <div class="card-block row animate-show-hide" ng-show="ctrl.expandSearch">
+
+                    <!--建物 -->
+                    <div class="col-sm-6 col-md-4">
+                        <label for="srBuildingSearch">建物</label>
+                        <select id="srBuildingSearch" class="form-control input-sm" ng-change="main.paging.refresh()"
+                                ng-model="ctrl.param.buildingCode"
+                                ng-options="r.code as r.name for r in main.masters.buildingList">
+                                <option value="">全て</option>
+                        </select>
+                    </div>
+
+                    <!--メーター番号-->
+                    <div class="col-sm-2">
+                        <label for="srRoomSearch">メーター番号</label>
+                        <select id="srRoomSearch" class="form-control input-sm" ng-change="main.paging.refresh()"
+                                ng-model="ctrl.param.roomCode"
+                                ng-options="r.roomCode as r.roomCode for r in main.masters.roomList | filter:{buildingCode: ctrl.param.buildingCode}">
+                                <option value="">全て</option>
+                        </select>
+                    </div>
+
+                    <!--検針日 -->
+                    <div class="col-sm-2">
+                        <label class="control-label text-nowrap">検針日</label>
+                        <div>
+                            <input id="srAppDateFrom" type="text" class="form-control date-picker" name="recDate" placeholder="YYYY/MM/DD"
+                                   ng-model="ctrl.param.recDate" ng-change="main.paging.refresh() " ng-required="true" style="background:white"/>
+                        </div>
+                        <script type="text/javascript">
+                            $(function() {
+                                $('.date-picker').datepicker({
+                                    language: "ja",
+                                    clearBtn: true,
+                                    todayHighlight: true,
+                                    autoclose: true,
+                                    daysOfWeekHighlighted:[0,6]
+                                });
+                            });
+                        </script>
+                    </div>
+                    <div class="col-sm-12">
+                        <div class="btn-group pull-right" style="margin-top: 10px;">
+                            <a type="button" class="btn btn-default btn-sm" ng-click="ctrl.expandSearch = false">閉じる</a>
+                        </div>
+                        <div class="btn-group pull-right" style="margin-top: 10px;">
+                            <a type="button" class="btn btn-default btn-sm" ng-click="ctrl.clear()">条件をクリア</a>
+                        </div>
+
+                        <!--<span>{{ctrl}}</span>-->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class=" col-xs-12">
+            <div class="card card-info">
+                <div class="card-header bordered card-header-sm">
+                    <div class="header-block pull-left">
+                        <h4 class="title">
+                            <span class="fa fa-calendar"> 一覧</span>
+                        </h4>
+                    </div>
+                </div>
+                <div class="card-block">
+                    <div ng-include="'parts/pagination'"></div>
+                    <table class="table table-striped table-bordered table-condensed table-hover my-table-list" ng-mouseleave="ctrl.overRow=-1">
+                        <thead>
+                        <tr class="text-center">
+                            <th style="width: 50px;">建物</th>
+                            <th style="width: 50px;">メーター番号</th>
+                            <th style="width: 30px;">検針日時</th>
+                            <th style="width: 40px">チャンネル1</th>
+                            <th style="width: 40px">チャンネル2</th>
+                            <th style="width: 40px">チャンネル3</th>
+                            <th style="width: 40px">チャンネル4</th>
+                        </tr>
+                        </thead>
+                        <tbody >
+                        <tr ng-repeat="rec in main.paging.listInPage" ng-mouseenter="ctrl.overRow = $index">
+                            <td><span style="white-space: pre-wrap;" ng-bind-html="::rec.buildingName"></span></td>
+                            <td><span style="white-space: pre-wrap;" ng-bind-html="::rec.roomCode"></span></td>
+                            <td class="text-nowrap">{{::rec.recDateTime}}</td>
+                            <td><span style="white-space: pre-wrap;" ng-bind-html="::rec.valueCh1"></span></td>
+                            <td><span style="white-space: pre-wrap;" ng-bind-html="::rec.valueCh2"></span></td>
+                            <td><span style="white-space: pre-wrap;" ng-bind-html="::rec.valueCh3"></span></td>
+                            <td><span style="white-space: pre-wrap;" ng-bind-html="::rec.valueCh4"></span></td>
+                        </tr>
+                        </tbody>
+                    </table>
+                    <div ng-include="'parts/pagination'"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</article>
+
+<script type="text/javascript">
+    $('.show-tooltip-top').tooltip({placement : 'top'});
+</script>
+

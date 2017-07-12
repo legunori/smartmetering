@@ -1,0 +1,41 @@
+<div th:fragment="header" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+    <!-- コンテンツ内容 ここから -->
+    <div class="header-block header-block-collapse hidden-lg-up">
+        <button class="collapse-btn" id="sidebar-collapse-btn">
+            <i class="fa fa-bars"></i>
+        </button>
+    </div>
+
+    <!--
+    <div class="header-block header-block-search animate" ng-if="main.state.selectedManagementId&&main.masters.managementGroupList.length" ng-cloak="">
+        <label class="search">
+            <select class="form-control"
+                    ng-model="main.state.selectedManagementId" ng-options="r.id as r.name for r in main.masters.managementGroupList"
+                    ng-change="main.managementGroupChanged()">
+            </select>
+        </label>
+    </div>
+     -->
+
+    <!--<div style="margin-left:50px">-->
+         <!--<h4 class="stats">Smart Billing System</h4>-->
+    <!--</div>-->
+    <div class="header-block header-block-nav">
+        <div th:text="${companyName}">会社名</div>
+        <ul class="nav-profile pull-right">
+            <li class="profile dropdown">
+                <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" onclick="return false;" role="button" aria-haspopup="true" aria-expanded="false"
+                    style="padding-right: 0">
+                    <span class="font-weight-bold animate" ng-bind="main.userInfo.userName" ng-if="main.userInfo.userName"></span>
+                </a>
+                <div class="dropdown-menu profile-dropdown-menu" aria-labelledby="dropdownMenu1">
+                    <a class="dropdown-item" href="#" data-toggle="modal" data-target="#profile-modal"> <i class="fa fa-user icon"></i> プロフィール変更 </a>
+                    <a class="dropdown-item" href="#" data-toggle="modal" data-target="#pwchange-modal"> <i class="fa fa-gear icon"></i> パスワード変更 </a>
+                    <div class="dropdown-divider"></div>
+                    <a class="dropdown-item" href="logout"> <i class="fa fa-power-off icon"></i> ログアウト </a>
+                </div>
+            </li>
+        </ul>
+    </div>
+    <!-- コンテンツ内容 ここまで -->
+</div>

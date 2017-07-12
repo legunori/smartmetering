@@ -1,0 +1,63 @@
+buildscript {
+	ext {
+		springBootVersion = '1.4.1.RELEASE'
+	}
+	repositories {
+		mavenCentral()
+	}
+	dependencies {
+		classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
+	}
+}
+
+apply plugin: 'java'
+apply plugin: 'eclipse'
+apply plugin: 'idea'
+apply plugin: 'spring-boot'
+apply plugin: 'war'
+
+war {
+	version = '0.0.1-SNAPSHOT'
+}
+
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
+
+repositories {
+	mavenCentral()
+}
+
+
+dependencies {
+	compile('org.springframework.boot:spring-boot-starter-data-jpa')
+	compile('org.springframework.boot:spring-boot-starter-thymeleaf')
+	compile('org.springframework.boot:spring-boot-starter-web')
+	compile('org.springframework.boot:spring-boot-starter-security')
+	compile('org.springframework.boot:spring-boot-devtools')
+	compile('mysql:mysql-connector-java')
+	compile("com.h2database:h2")
+	compile("org.projectlombok:lombok:1.16.10")
+	compile('net.sourceforge.nekohtml:nekohtml:1.9.15') // for LEGACY HTML5 template
+	compile('org.apache.poi:poi:3.15')
+	compile('org.apache.poi:poi-ooxml:3.15')
+	compile('org.apache.poi:poi-ooxml-schemas:3.15')
+	compile('org.apache.xmlbeans:xmlbeans:2.6.0')
+	compile('org.apache.commons:commons-collections4:4.1')
+//	compile("com.univocity:univocity-parsers:2.2.1")
+//	compile("com.fasterxml.jackson.datatype:jackson-datatype-jsr310:2.8.3")
+	testCompile('org.springframework.boot:spring-boot-starter-test')
+	testCompile('org.dbunit:dbunit:2.5.+')
+	testCompile('com.github.springtestdbunit:spring-test-dbunit:1.3.+')
+//	compile group: 'com.fasterxml.jackson.datatype', name: 'jackson-datatype-jsr310', version: '2.8.3'
+	compile fileTree(dir: 'libs', include: ['*.jar'])
+
+	//war作成時に組み込みTomcatを外す
+//	providedRuntime("org.springframework.boot:spring-boot-starter-tomcat")
+}
+
+eclipse {
+	classpath {
+		 containers.remove('org.eclipse.jdt.launching.JRE_CONTAINER')
+		 containers 'org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.8'
+	}
+}

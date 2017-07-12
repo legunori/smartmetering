@@ -1,0 +1,98 @@
+<!doctype html>
+<html class="no-js" lang="ja"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+
+    <head>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+        <meta http-equiv="Content-type" content="text/html; charset=utf-8"/>
+        <meta http-equiv="Content-Style-Type" content="text/css"/>
+        <meta http-equiv="pragma" content="no-cache"/>
+        <meta http-equiv="cache-control" content="no-cache"/>
+        <meta http-equiv="expires" content="0"/>
+        <meta charset="utf-8"/>
+        <meta http-equiv="x-ua-compatible" content="ie=edge"/>
+
+        <title> Smart Metering System </title>
+        <meta name="description" content="Developed By Yoichi Masumoto@Valsys, inc."/>
+        <meta name="viewport" content="width=device-width, initial-scale=1"/>
+
+        <link rel="apple-touch-icon" href="apple-touch-icon.png"/>
+        <!-- Place favicon.ico in the root directory -->
+        <link rel="stylesheet" href="css/vendor.css"/>
+        <!-- Theme initialization -->
+        <script>
+            var themeSettings = (localStorage.getItem('themeSettings')) ? JSON.parse(localStorage.getItem('themeSettings')) :
+            {};
+            var themeName = themeSettings.themeName || '';
+            if (themeName)
+            {
+                document.write('<link rel="stylesheet" id="theme-style" href="css/app-' + themeName + '.css"/>');
+            }
+            else
+            {
+                document.write('<link rel="stylesheet" id="theme-style" href="css/app.css"/>');
+            }
+        </script>
+    </head>
+
+    <body>
+        <div class="auth">
+            <div class="auth-container">
+                <div class="card">
+                    <header class="auth-header">
+                        <h1 class="auth-title">
+                            <div class="logo">
+                                <span class="l l1"></span>
+                                <span class="l l2"></span>
+                                <span class="l l3"></span>
+                                <span class="l l4"></span>
+                                <span class="l l5"></span>
+                            </div>
+                            <span>スマートメータリングシステム</span>
+                        </h1>
+                    </header>
+                    <div class="auth-content">
+                        <p class="text-xs-center">スマートメータリングにログイン</p>
+                        <div th:if="${error_code == '1'}" class="alert alert-warning text-center" role="alert">
+                            <p>ログインIDまたはパスワードが間違っています</p>
+                        </div>
+
+                        <form id="login-form" action="login" method="POST" novalidate="">
+                            <!--CSRF対策のためのトークン これがないとアクセスできない-->
+                            <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
+                            <!-- -->
+                            <div class="form-group">
+                                <label fofr="login_id">ログインID</label>
+                                <input type="text" class="form-control" name="login_id" id="login_id"
+                                       placeholder="ログインIDを入力してください" required=""/>
+                            </div>
+                            <div class="form-group">
+                                <label for="password">パスワード</label>
+                                <input type="password" class="form-control" name="password" id="password"
+                                       placeholder="パスワードを入力してください" required=""/>
+                            </div>
+                            <div class="form-group">
+                                <a href="reset" class="forgot-btn pull-right">パスワードのリセット</a>
+                            </div>
+                            <div class="form-group">
+                                <button type="submit" class="btn btn-block btn-primary">ログイン</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Reference block for JS -->
+        <div class="ref" id="ref">
+            <div class="color-primary"></div>
+            <div class="chart">
+                <div class="color-primary"></div>
+                <div class="color-secondary"></div>
+            </div>
+        </div>
+        <script src="js/vendor.js"></script>
+        <script src="js/app.js"></script>
+    </body>
+
+</html>

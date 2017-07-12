@@ -1,0 +1,53 @@
+<nav ng-controller="partPaginationController">
+    <table >
+        <tr>
+            <td>
+                <ul class="pagination pagination-sm" style="margin: 0;">
+                    <!-- Page Previous -->
+                    <li class="page-item" ng-class="{'disabled':listPaging.previousDisabled}">
+                        <a ng-click="listPaging.switchTo(listPaging.currentPage-1)" class="page-link" href="#" onclick="return false;">
+                            <span aria-hidden="true" class="fa fa-caret-left"></span>
+                        </a>
+                    </li>
+                    <!-- Bulk Previous -->
+                    <li class="page-item" ng-if="listPaging.hasBulkPrevious">
+                        <a ng-click="listPaging.switchTo(listPaging.pageLimit*(listPaging.bulkIndex-1))" class="page-link" href="#" onclick="return false;">
+                            <span>...</span>
+                        </a>
+                    </li>
+
+                    <!-- Page -->
+                    <li class="page-item" ng-repeat="pg in listPaging.pagination" ng-class="{'active':pg.number==listPaging.currentPage}">
+                        <a ng-click="listPaging.switchTo(pg.number)" class="page-link" href="#" onclick="return false;">
+                            <span>{{pg.number}}</span>
+                        </a>
+                    </li>
+
+                    <!-- Bulk Next -->
+                    <li class="page-item" ng-if="listPaging.hasBulkNext">
+                        <a ng-click="listPaging.switchTo(listPaging.pageLimit*listPaging.bulkIndex+1)" class="page-link" href="#" onclick="return false;">
+                            <span>...</span>
+                        </a>
+                    </li>
+                    <!-- Page Next -->
+                    <li class="page-item" ng-class="{'disabled':listPaging.nextDisabled}">
+                        <a ng-click="listPaging.switchTo(listPaging.currentPage+1)" class="page-link" href="#" onclick="return false;">
+                            <span aria-hidden="true" class="fa fa-caret-right"></span>
+                        </a>
+                    </li>
+                </ul>
+            </td>
+            <td style="vertical-align: top">
+                <select id="rows-in-page-setting" class="form-control no-margin no-padding input-sm"
+                        ng-model="$storage.showInPage" ng-options="row.name for row in listPaging.showPageSelection track by row.count"
+                        ng-change="changeRowsInPage()">
+                </select>
+            </td>
+            <td style="vertical-align: top; padding-left:10px; padding-top:4px">
+                <a href="#" onclick="return false;" ng-click="listPaging.refresh()" title="リフレッシュ">
+                    <span ng-class="listPaging.isLoading?'loader':'loader-off'" class="fa fa-refresh"></span>
+                </a>
+            </td>
+        </tr>
+    </table>
+</nav>

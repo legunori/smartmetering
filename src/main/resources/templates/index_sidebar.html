@@ -1,0 +1,161 @@
+<div th:fragment="sidebar" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+    <div class="sidebar-container">
+        <div class="sidebar-header">
+            <div class="brand">
+                <div class="logo">
+                    <span class="l l1"></span>
+                    <span class="l l2"></span>
+                    <span class="l l3"></span>
+                    <span class="l l4"></span>
+                    <span class="l l5"></span>
+                </div>
+                Smart Metering
+                <!--<div class="img" style="background-image: url('images/gmo_logo.gif')"></div>-->
+                <!--<img src="images/gmo_logo.gif"/>-->
+            </div>
+        </div>
+        <nav class="menu">
+            <ul class="nav metismenu" id="sidebar-menu" ng-cloak="">
+                <!-- ダッシュボード -->
+                <li ng-class="{active: main.isActiveView('/dashboard')}" class="" >
+                    <a ng-click="main.changeView('/dashboard')" href="#" onclick="return false;">
+                        <i class="fa fa-home"></i>
+                        <span> ダッシュボード </span>
+                    </a>
+                </li>
+                <!-- 検針状況-->
+                <li ng-class="{active: main.isActiveView('/meteringStatus')}" class="" >
+                    <a ng-click="main.changeView('/meteringStatus')" href="#" onclick="return false;">
+                        <i class="fa fa-home"></i>
+                        <span> 検針状況 </span>
+                    </a>
+                </li>
+                <!-- 検針ライブデータ-->
+                <li ng-class="{active: main.isActiveView(['/meteringLiveDataSmartenergy', '/meteringLiveDataTandd'])}" class="" >
+                    <a href=""> <i class="fa fa-user"></i> 検針ライブデータ <i class="fa arrow"></i></a>
+                    <ul>
+                        <li ng-class="{active: main.isActiveView('/meteringLiveDataSmartenergy')}">
+                            <a ng-click="main.changeView('/meteringLiveDataSmartenergy')" href="#" onclick="return false;">
+                                S E 社製 検針機器
+                            </a>
+                        </li>
+                        <li ng-class="{active: main.isActiveView('/meteringLiveDataTandd')}">
+                            <a ng-click="main.changeView('/meteringLiveDataTandd')" href="#" onclick="return false;">
+                                T&D 社製 検針機器
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+
+                <!-- 検針結果-->
+                <li ng-class="{active: main.isActiveView(['/meterResultDaily', '/meterResultMonthly'])}" class="" >
+                    <a href=""> <i class="fa fa-user"></i> 検針結果 <i class="fa arrow"></i></a>
+                    <ul>
+                        <li ng-class="{active: main.isActiveView('/meterResultDaily')}">
+                            <a ng-click="main.changeView('/meterResultDaily')" href="#" onclick="return false;">
+                                日次集計データ
+                            </a>
+                        </li>
+                        <li ng-class="{active: main.isActiveView('/meterResultMonthly')}">
+                            <a ng-click="main.changeView('/meterResultMonthly')" href="#" onclick="return false;">
+                                月次集計データ
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+                <!-- 検針設定-->
+<!--
+                <li ng-class="{active: main.isActiveView(['/contractNew', '/contractList'])}" class="" >
+                    <a href=""> <i class="fa fa-user"></i> 検針設定 <i class="fa arrow"></i></a>
+                    <ul>
+                        <li ng-class="{active: main.isActiveView('/contractNew')}">
+                            <a ng-click="main.changeView('/contractNew')" href="#" onclick="return false;">
+                                設置パターン
+                            </a>
+                        </li>
+                        <li ng-class="{active: main.isActiveView('/contractList')}">
+                            <a ng-click="main.changeView('/contractList')" href="#" onclick="return false;">
+                                物件設定
+                            </a>
+                        </li>
+                        <li ng-class="{active: main.isActiveView('/contractList')}">
+                            <a ng-click="main.changeView('/contractList')" href="#" onclick="return false;">
+                                検針機器設定情報
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+ -->
+                <li ng-class="{active: main.isActiveView('/system')}" ng-show="main.state.selectedManagementType=='S'">
+                    <a ng-click="main.changeView('/system')" href="#" onclick="return false;">
+                        <i class="fa fa-desktop"></i>
+                        <span> システム設定 </span>
+                    </a>
+                </li>
+
+            </ul>
+        </nav>
+    </div>
+
+    <footer class="sidebar-footer">
+        <ul class="nav metismenu" id="customize-menu">
+            <li>
+                <ul>
+                    <li class="customize">
+                        <div class="customize-item">
+                            <div class="row customize-header">
+                                <div class="col-xs-4"> </div>
+                                <div class="col-xs-4"> <label class="title">固定</label> </div>
+                                <div class="col-xs-4"> <label class="title">非固定</label> </div>
+                            </div>
+                            <div class="row hidden-md-down">
+                                <div class="col-xs-4"> <label class="title">サイド:</label> </div>
+                                <div class="col-xs-4"> <label>
+                                    <input class="radio" type="radio" name="sidebarPosition" value="sidebar-fixed"/>
+                                    <span></span>
+                                </label> </div>
+                                <div class="col-xs-4"> <label>
+                                    <input class="radio" type="radio" name="sidebarPosition" value=""/>
+                                    <span></span>
+                                </label> </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-xs-4"> <label class="title">ヘッダ:</label> </div>
+                                <div class="col-xs-4"> <label>
+                                    <input class="radio" type="radio" name="headerPosition" value="header-fixed"/>
+                                    <span></span>
+                                </label> </div>
+                                <div class="col-xs-4"> <label>
+                                    <input class="radio" type="radio" name="headerPosition" value=""/>
+                                    <span></span>
+                                </label> </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-xs-4"> <label class="title">フッタ:</label> </div>
+                                <div class="col-xs-4"> <label>
+                                    <input class="radio" type="radio" name="footerPosition" value="footer-fixed"/>
+                                    <span></span>
+                                </label> </div>
+                                <div class="col-xs-4"> <label>
+                                    <input class="radio" type="radio" name="footerPosition" value=""/>
+                                    <span></span>
+                                </label> </div>
+                            </div>
+                        </div>
+                        <!--<div class="customize-item">-->
+                            <!--<ul class="customize-colors">-->
+                                <!--<li> <span class="color-item color-red" data-theme="red"></span> </li>-->
+                                <!--<li> <span class="color-item color-orange" data-theme="orange"></span> </li>-->
+                                <!--<li> <span class="color-item color-green" data-theme="green"></span> </li>-->
+                                <!--<li> <span class="color-item color-seagreen" data-theme="seagreen"></span> </li>-->
+                                <!--<li> <span class="color-item color-blue active" data-theme=""></span> </li>-->
+                                <!--<li> <span class="color-item color-purple" data-theme="purple"></span> </li>-->
+                            <!--</ul>-->
+                        <!--</div>-->
+                    </li>
+                </ul>
+                <a href=""> <i class="fa fa-cog"></i> 画面設定 </a>
+            </li>
+        </ul>
+    </footer>
+</div>
