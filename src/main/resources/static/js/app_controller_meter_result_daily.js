@@ -42,36 +42,55 @@ angular.module('mainApp').controller('MeterResultDailyController', ['meterResult
         var fromDate;
         var toDate;
 
-
+        var fromYear;
         var fromMonth;
+        var toYear;
         var toMonth;
 
         if (today.getDate() >=21){
+        	// 21日以降は当月21日～翌月20日
         	if ((today.getMonth() + 1) < 10) {
-       			fromMonth = "0" + (today.getMonth() + 1);
-       		}else{
-       			fromMonth = (today.getMonth() + 1);
-       		}
-            if ((today.getMonth() + 2) < 10) {
-        		toMonth = "0" + (today.getMonth() + 2);
-        	}else{
-        		toMonth = (today.getMonth() + 2);
-        	}
-        	fromDate = today.getFullYear() + "/" + fromMonth + "/21";
-        	toDate = today.getFullYear() + "/" + toMonth + "/20";
+             fromMonth = "0" + (today.getMonth() + 1);
+           }else{
+             fromMonth = (today.getMonth() + 1);
+           }
+
+          if ((today.getMonth() + 2) < 10) {
+        	  toYear = today.getFullYear();
+        	  toMonth = "0" + (today.getMonth() + 2);
+          }else if(today.getMonth() > 10){
+        	//当月が12月の場合は翌年かつ1月
+            toYear = today.getFullYear() + 1;
+            toMonth = "01";
+          } else{
+            toYear = today.getFullYear();
+            toMonth = (today.getMonth() + 2);
+          }
+          fromDate = today.getFullYear() + "/" + fromMonth + "/21";
+          toDate = toYear + "/" + toMonth + "/20";
         }else{
-        	if (today.getMonth() < 10) {
-       			fromMonth = "0" + today.getMonth();
-       		}else{
-       			fromMonth = today.getMonth();
-       		}
-            if ((today.getMonth() + 1) < 10) {
-        		toMonth = "0" + (today.getMonth() + 1);
-        	}else{
-        		toMonth = (today.getMonth() + 1);
-        	}
-        	fromDate = today.getFullYear() + "/" + fromMonth + "/21";
-        	toDate = today.getFullYear() + "/" + toMonth + "/20";
+        	// 21日以前は前月21日～当月20日
+           if (today.getMonth() == 0) {
+        	   // 当月が1月の場合は、前年12月
+        	   fromYear = today.getFullYear() - 1;
+        	   fromMonth = 12;
+           }else if (today.getMonth() < 10) {
+             fromMonth = "0" + today.getMonth();
+           }else{
+             fromMonth = today.getMonth();
+           }
+           if ((today.getMonth() + 1) < 10) {
+        	   toYear = today.getFullYear();
+        	   toMonth = "0" + (today.getMonth() + 1);
+           }else if(today.getMonth() > 10){
+              toYear = today.getFullYear() + 1;
+              toMonth = "01";
+          }else{
+            toYear = today.getFullYear();
+            toMonth = today.getMonth() + 1;
+          }
+          fromDate = fromYear + "/" + fromMonth + "/21";
+          toDate = toYear + "/" + toMonth + "/20";
         }
 
         //検索パラメーター
